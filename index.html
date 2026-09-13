@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Онлайн-приглашение на свидание ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(180deg, #fff5f8 0%, #ffffff 100%);
+      min-height: 100vh;
+      color: #2d2d2d;
+      overflow-x: hidden;
+    }
+    .flower {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      background: #a8e0ff;
+      border-radius: 50%;
+      opacity: 0.4;
+      z-index: 0;
+      filter: blur(2px);
+    }
+    .flower::before, .flower::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: #a8e0ff;
+      border-radius: 50%;
+    }
+    .flower::before { top: -20px; left: 10px; }
+    .flower::after { top: 10px; left: -20px; }
+    .flower1 { top: 10%; left: 5%; }
+    .flower2 { top: 20%; right: 8%; width: 40px; height: 40px; }
+    .flower3 { bottom: 15%; left: 10%; width: 50px; height: 50px; }
+    .flower4 { top: 60%; right: 5%; }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .logo {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: #ff6b9d;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+    .logo span { color: #ff4d8d; }
+    .progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .progress-bar {
+      height: 6px;
+      background: #ffe0eb;
+      border-radius: 10px;
+      flex: 1;
+      max-width: 200px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #ff4d8d);
+      border-radius: 10px;
+      width: 33%;
+      transition: width 0.4s ease;
+    }
+    .heart { font-size: 22px; }
+
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 35px;
+      font-size: 15px;
+    }
+
+    .step { display: none; animation: fadeIn 0.4s ease; }
+    .step.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gender-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .gender-card {
+      background: #fff;
+      border: 2px solid #f0f0f0;
+      border-radius: 20px;
+      padding: 28px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(255, 107, 157, 0.08);
+    }
+    .gender-card:hover { border-color: #ffb3cb; transform: translateY(-3px); }
+    .gender-card.selected {
+      border-color: #ff6b9d;
+      background: #fff5f8;
+      box-shadow: 0 6px 20px rgba(255, 107, 157, 0.2);
+    }
+    .gender-card .emoji { font-size: 48px; margin-bottom: 10px; }
+    .gender-card .label { font-weight: 700; font-size: 16px; }
+
+    .form-group { margin-bottom: 20px; }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #444;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #f0f0f0;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 16px;
+      transition: border 0.2s;
+      background: #fff;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #ff6b9d;
+    }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .btn {
+      flex: 1;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-back {
+      background: #fff;
+      color: #666;
+      border: 2px solid #eee;
+    }
+    .btn-back:hover { background: #f9f9f9; }
+    .btn-next, .btn-create {
+      background: linear-gradient(135deg, #ff6b9d, #ff4d8d);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255, 107, 157, 0.35);
+    }
+    .btn-next:hover, .btn-create:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 107, 157, 0.45);
+    }
+    .btn-create { width: 100%; margin-top: 10px; }
+
+    .result-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 40px rgba(255, 107, 157, 0.12);
+      text-align: center;
+    }
+    .result-box h2 { color: #ff4d8d; margin-bottom: 12px; }
+    .link-box {
+      background: #fff5f8;
+      border: 2px dashed #ffb3cb;
+      border-radius: 12px;
+      padding: 14px;
+      word-break: break-all;
+      font-size: 14px;
+      margin: 18px 0;
+      color: #555;
+    }
+    .copy-btn {
+      background: #ff6b9d;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .copy-btn:hover { background: #ff4d8d; }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="flower flower1"></div>
+  <div class="flower flower2"></div>
+  <div class="flower flower3"></div>
+  <div class="flower flower4"></div>
+
+  <div class="container">
+    <div class="logo">ТОЛЬКО<span>❤</span>ТЕПЛО</div>
+
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="heart">💗</span>
+    </div>
+
+    <!-- STEP 1: Gender -->
+    <div class="step active" id="step1">
+      <h1>Кого хочешь пригласить<br>на свидание?</h1>
+      <p class="subtitle">Выбери, кому отправляешь открытку</p>
+      <div class="gender-cards">
+        <div class="gender-card" data-gender="male" onclick="selectGender(this)">
+          <div class="emoji">👨‍🦱</div>
+          <div class="label">Мужчину</div>
+        </div>
+        <div class="gender-card" data-gender="female" onclick="selectGender(this)">
+          <div class="emoji">👩‍🦰</div>
+          <div class="label">Женщину</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-next" onclick="nextStep(2)" id="btnStep1" disabled style="opacity:0.5">Продолжить</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Names & Message -->
+    <div class="step" id="step2">
+      <h1>Заполни открытку 💌</h1>
+      <p class="subtitle">Напиши тёплые слова</p>
+      <div class="form-group">
+        <label>От кого (твоё имя)</label>
+        <input type="text" id="fromName" placeholder="Например: Алекс" maxlength="30">
+      </div>
+      <div class="form-group">
+        <label>Кому (имя получателя)</label>
+        <input type="text" id="toName" placeholder="Например: Саша" maxlength="30">
+      </div>
+      <div class="form-group">
+        <label>Текст приглашения</label>
+        <textarea id="message" placeholder="Хочу пригласить тебя на свидание... Расскажи, куда и когда ❤️"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Дата / время (необязательно)</label>
+        <input type="text" id="dateTime" placeholder="Например: в субботу в 19:00">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-back" onclick="nextStep(1)">← Назад</button>
+        <button class="btn btn-next" onclick="nextStep(3)">Продолжить</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Create -->
+    <div class="step" id="step3">
+      <h1>Готово! 🎉</h1>
+      <p class="subtitle">Твоя милая открытка создана</p>
+      <div class="result-box">
+        <h2>Ссылка на открытку</h2>
+        <p style="color:#666; font-size:14px; margin-bottom:10px;">Отправь её тому, кого хочешь пригласить</p>
+        <div class="link-box" id="resultLink">...</div>
+        <button class="copy-btn" onclick="copyLink()">Скопировать ссылку 💕</button>
+        <br><br>
+        <a id="previewLink" href="#" target="_blank" style="color:#ff6b9d; font-weight:700; text-decoration:none;">Открыть открытку →</a>
+      </div>
+      <button class="btn btn-create" onclick="location.reload()" style="margin-top:25px;">Создать ещё одну</button>
+    </div>
+  </div>
+
+  <footer>
+    Сделано с любовью и похотью 💗<br>
+    Только для тех, кто хочет быть оттраханным между булочек
+  </footer>
+
+  <script>
+    let selectedGender = null;
+    let currentStep = 1;
+
+    function selectGender(el) {
+      document.querySelectorAll('.gender-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedGender = el.dataset.gender;
+      const btn = document.getElementById('btnStep1');
+      btn.disabled = false;
+      btn.style.opacity = 1;
+    }
+
+    function nextStep(step) {
+      if (step === 2 && !selectedGender) return;
+      if (step === 3) {
+        const from = document.getElementById('fromName').value.trim() || 'Тайный поклонник';
+        const to = document.getElementById('toName').value.trim() || 'Тебе';
+        const msg = document.getElementById('message').value.trim() || 'Хочу пригласить тебя на свидание ❤️';
+        const dt = document.getElementById('dateTime').value.trim();
+
+        const data = {
+          g: selectedGender,
+          from: from,
+          to: to,
+          msg: msg,
+          dt: dt
+        };
+        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+        const base = window.location.href.replace(/\/[^\/]*$/, '/') + 'card.html';
+        const fullLink = base + '?d=' + encoded;
+
+        document.getElementById('resultLink').textContent = fullLink;
+        document.getElementById('previewLink').href = fullLink;
+      }
+
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step' + step).classList.add('active');
+      currentStep = step;
+
+      const fill = document.getElementById('progressFill');
+      if (step === 1) fill.style.width = '33%';
+      if (step === 2) fill.style.width = '66%';
+      if (step === 3) fill.style.width = '100%';
+    }
+
+    function copyLink() {
+      const text = document.getElementById('resultLink').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Скопировано! 💦';
+        setTimeout(() => btn.textContent = 'Скопировать ссылку 💕', 2000);
+      });
+    }
+  </script>
+</body>
+</html>
