@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Софа и Унитаз 💩❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(165deg, #f0fff0 0%, #e8f8e8 40%, #fff5f0 100%);
+      min-height: 100vh;
+      color: #2d2d2d;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 18px 60px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step {
+      display: none;
+      animation: fadeIn 0.45s ease;
+      flex-direction: column;
+    }
+    .step.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .big-question {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .big-question h1 {
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+    .toilet-emoji {
+      font-size: 80px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .btn {
+      padding: 18px 24px;
+      border: none;
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-yes {
+      background: linear-gradient(135deg, #4caf50, #2e7d32);
+      color: white;
+      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+    }
+    .btn-yes:hover { transform: translateY(-3px); }
+    .btn-no {
+      background: white;
+      color: #666;
+      border: 2px solid #ddd;
+    }
+    .btn-no:hover { background: #f5f5f5; }
+
+    .pon-screen {
+      text-align: center;
+      margin-top: 60px;
+    }
+    .pon-screen h1 {
+      font-size: 64px;
+      color: #4caf50;
+    }
+
+    .time-form {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: 0 10px 40px rgba(76, 175, 80, 0.12);
+    }
+    .form-group { margin-bottom: 20px; }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 16px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #4caf50;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .option-card {
+      background: white;
+      border: 3px solid #e0e0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+    .option-card:hover { transform: translateY(-4px); }
+    .option-card.selected {
+      border-color: #4caf50;
+      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.25);
+    }
+    .option-card .emoji {
+      font-size: 48px;
+      padding: 20px 0 8px;
+      display: block;
+    }
+    .option-card .label {
+      padding: 8px 8px 14px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .selected-count {
+      text-align: center;
+      font-size: 14px;
+      color: #2e7d32;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .love-screen {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .love-screen h1 {
+      font-size: 28px;
+      color: #2e7d32;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .hearts {
+      font-size: 42px;
+      letter-spacing: 8px;
+      margin: 24px 0;
+      animation: pulse 1.4s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    .poop-heart {
+      font-size: 90px;
+      margin: 20px 0;
+      display: block;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+
+    .summary-box {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: 0 10px 40px rgba(76, 175, 80, 0.15);
+      text-align: center;
+    }
+    .summary-box h2 {
+      color: #2e7d32;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .summary-item {
+      background: #f1f8e9;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      text-align: left;
+      font-size: 15px;
+    }
+    .summary-item strong {
+      color: #2e7d32;
+    }
+    .final-poop {
+      font-size: 70px;
+      margin: 16px 0;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #4caf50, #2e7d32);
+      color: white;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.35);
+    }
+    .btn-next:hover { transform: translateY(-2px); }
+    .btn-next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .progress {
+      height: 6px;
+      background: #c8e6c9;
+      border-radius: 10px;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4caf50, #2e7d32);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+      <div class="progress"><div class="progress-fill" style="width: 20%"></div></div>
+      <div class="big-question">
+        <span class="toilet-emoji">🚽</span>
+        <h1>Софа, ты пойдёшь<br>мыть унитаз? 🥺</h1>
+        <div class="btn-group">
+          <button class="btn btn-yes" onclick="goToStep(2)">Да, с радостью 💩</button>
+          <button class="btn btn-no" onclick="goToStep('pon')">Нет, пусть сам моет</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ПОН -->
+    <div class="step" id="step-pon">
+      <div class="pon-screen">
+        <h1>пон</h1>
+        <p style="margin-top: 16px; color: #666; font-size: 18px;">тогда унитаз останется грязным...</p>
+        <div style="font-size: 60px; margin: 30px 0;">🚽💔</div>
+        <button class="btn btn-next" onclick="goToStep(1)">Вернуться</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <div class="progress"><div class="progress-fill" style="width: 40%"></div></div>
+      <h1>Когда будешь мыть? 🕐</h1>
+      <p class="subtitle">Выбери время генеральной уборки</p>
+      <div class="time-form">
+        <div class="form-group">
+          <label>Дата</label>
+          <input type="date" id="dateInput">
+        </div>
+        <div class="form-group">
+          <label>Время</label>
+          <input type="time" id="timeInput">
+        </div>
+        <button class="btn btn-next" onclick="saveTimeAndNext()">Далее →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+      <div class="progress"><div class="progress-fill" style="width: 60%"></div></div>
+      <h1>Что возьмёшь с собой? ✨</h1>
+      <p class="subtitle">Можно выбрать до 3 штук</p>
+      <div class="selected-count" id="selectedCount">Выбрано: 0 / 3</div>
+      <div class="options-grid" id="optionsGrid"></div>
+      <button class="btn btn-next" id="btnStep3" disabled onclick="goToStep(4)">Далее →</button>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" id="step4">
+      <div class="progress"><div class="progress-fill" style="width: 80%"></div></div>
+      <div class="love-screen">
+        <h1>Софа<br>я тебя ооочень<br>сильно люблю</h1>
+        <p style="color:#666; margin-bottom:10px;">особенно когда ты моешь унитаз</p>
+        <div class="hearts">❤️ ❤️ ❤️</div>
+        <div class="poop-heart">💩❤️</div>
+        <p style="font-size:14px; color:#888; margin-top:10px;">(какашка в форме сердца)</p>
+        <button class="btn btn-next" onclick="goToStep(5)">Нажми 💕</button>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" id="step5">
+      <div class="progress"><div class="progress-fill" style="width: 100%"></div></div>
+      <div class="summary-box">
+        <h2>Миссия принята 🚽</h2>
+        <div class="summary-item">
+          <strong>Когда моем:</strong> <span id="sumDate">—</span>
+        </div>
+        <div class="summary-item">
+          <strong>Что берём:</strong><br>
+          <span id="sumChoices">—</span>
+        </div>
+        <div class="final-poop">💩❤️</div>
+        <p style="font-size: 15px; color: #2e7d32; font-weight: 700; margin-top: 8px;">
+          Какашка в форме сердца<br>специально для Софы
+        </p>
+        <p style="margin-top: 18px; color: #888; font-size: 14px;">
+          Жду тебя у унитаза, любимая ❤️
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let selectedTime = { date: '', time: '' };
+    let selectedOptions = [];
+
+    const options = [
+      { id: 'brush', label: 'Ёршик', emoji: '🧹' },
+      { id: 'gloves', label: 'Перчатки', emoji: '🧤' },
+      { id: 'duck', label: 'Уточка', emoji: '🦆' },
+      { id: 'spray', label: 'Спрей', emoji: '🧴' },
+      { id: 'music', label: 'Музыка', emoji: '🎧' },
+      { id: 'snack', label: 'Перекус', emoji: '🍫' }
+    ];
+
+    function renderOptions() {
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+      options.forEach(opt => {
+        const card = document.createElement('div');
+        card.className = 'option-card';
+        card.dataset.id = opt.id;
+        card.innerHTML = `
+          <span class="emoji">${opt.emoji}</span>
+          <div class="label">${opt.label}</div>
+        `;
+        card.onclick = () => toggleOption(opt.id, card);
+        grid.appendChild(card);
+      });
+    }
+
+    function toggleOption(id, card) {
+      const index = selectedOptions.indexOf(id);
+      if (index > -1) {
+        selectedOptions.splice(index, 1);
+        card.classList.remove('selected');
+      } else {
+        if (selectedOptions.length >= 3) return;
+        selectedOptions.push(id);
+        card.classList.add('selected');
+      }
+      updateSelectedCount();
+    }
+
+    function updateSelectedCount() {
+      document.getElementById('selectedCount').textContent = `Выбрано: ${selectedOptions.length} / 3`;
+      document.getElementById('btnStep3').disabled = selectedOptions.length === 0;
+    }
+
+    function saveTimeAndNext() {
+      const date = document.getElementById('dateInput').value;
+      const time = document.getElementById('timeInput').value;
+      if (!date || !time) {
+        alert('Сначала выбери, когда Софа будет мыть унитаз 🚽');
+        return;
+      }
+      selectedTime = { date, time };
+      goToStep(3);
+    }
+
+    function goToStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+
+      if (step === 'pon') {
+        document.getElementById('step-pon').classList.add('active');
+        return;
+      }
+
+      document.getElementById('step' + step).classList.add('active');
+
+      if (step === 3) {
+        renderOptions();
+        selectedOptions = [];
+        updateSelectedCount();
+      }
+
+      if (step === 5) {
+        const dateStr = selectedTime.date ? new Date(selectedTime.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) : '—';
+        document.getElementById('sumDate').textContent = `${dateStr} в ${selectedTime.time || '—'}`;
+
+        const labels = selectedOptions.map(id => {
+          const opt = options.find(o => o.id === id);
+          return opt ? opt.label : id;
+        });
+        document.getElementById('sumChoices').textContent = labels.length ? labels.join(', ') : '—';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('dateInput').value = today;
+    });
+  </script>
+</body>
+</html>
